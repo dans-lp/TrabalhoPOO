@@ -1,4 +1,4 @@
-/* OBS.: Adicionar verificação de movimento válido quando o tabuleiro estiver pronto */
+
 public class Peao {
 	
 	private final int poloInicial;
@@ -7,12 +7,20 @@ public class Peao {
 	private int polo;
 	private int coord;
 	
+	public Peao() {
+		poloInicial = 0;
+		cor = null;
+		jogador = 0;
+		polo = 0;
+		coord = 0;
+	}
+	
 	public Peao(int numPolo, int numJogador, String corPeao){
 		poloInicial = numPolo;
 		cor = corPeao;
-      jogador = numJogador;
-      polo = poloInicial;
-      coord = 0;
+        jogador = numJogador;
+        polo = poloInicial;
+        coord = 0;
     }
 	
 	public int poloInicialDoPeao() {

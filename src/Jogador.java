@@ -1,18 +1,20 @@
+
 public class Jogador {
 	
 	private static int totJog = 0;
 	private int numJog;
 	private final String cor;
 	private Peao[] peao;
-	private int metas, exploradores, conquistas;
+	private int polo, metas, exploradores, conquistas;
 	
 	public Jogador (String corJogador, int numPolo) {
 		totJog++;
 		numJog = totJog;
 		cor = corJogador;
+		polo = numPolo;
 		peao = new Peao[6];
-		for (int i=0; i<6; i++) {
-			peao[i] = new Peao(numPolo, numJog, cor);
+		for (int i=0; i<peao.length; i++) {
+			peao[i] = new Peao(polo, numJog, cor);
 		}
 		metas = 0;
 		exploradores = 0;
@@ -33,6 +35,14 @@ public class Jogador {
 	
 	public Peao peaodoJogador(int numPeao) {
 		return peao[numPeao-1];
+	}
+	
+	public Peao[] todosPeoesJoagdor() {
+		return peao;
+	}
+	
+	public int poloDoJogdor() {
+		return polo;
 	}
 	
 	public int qtdMetasJogador() {

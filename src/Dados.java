@@ -1,3 +1,4 @@
+
 public class Dados {
 	
 	private static int dado1;
@@ -23,19 +24,19 @@ public class Dados {
 	}
 
 
-	public boolean comparadados() {
+	public boolean comparaDados() {
 	
-		System.out.println("O valor do Primeiro dado ï¿½: "+ dado1);
-		System.out.println("O valor do Segundo dado ï¿½: "+ dado2);
+		System.out.println("O valor do Primeiro dado é: "+ dado1);
+		System.out.println("O valor do Segundo dado é: "+ dado2);
 		
 		if(dado1 == dado2) {
-			System.out.println("Nï¿½meros repetidos!");
+			System.out.println("Números repetidos!");
 			int index = (int) (Math.random() * cores.length);
 			System.out.println("Resultado do dado colorido: "+cores[index]);
 			return true;
 		}
 		else {
-			System.out.println("O valor de casas a ser andado ï¿½ de: "+ SomaDados());
+			System.out.println("O valor de casas a ser andado é de: "+ SomaDados());
 			return false;
 		}
 	}
