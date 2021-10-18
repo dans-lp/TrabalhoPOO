@@ -20,7 +20,7 @@ public class Padrao {
 		tabuleiro.iniciaPolo(jogadores[0], jogadores[0].poloDoJogdor());
 		tabuleiro.iniciaPolo(jogadores[1], jogadores[1].poloDoJogdor());
 		
-		System.out.println("Jogadores lançam os dados, quem obter o maior número inicia o jogo.");
+		System.out.println("Jogadores lanï¿½am os dados, quem obter o maior nï¿½mero inicia o jogo.");
 		for (int i=0; i<jogadores.length; i++) {
 			dado1 = dados.jogaDado1();
 			System.out.println("Jogador " + (i+1) + "obteve " + dado1);
@@ -49,11 +49,11 @@ public class Padrao {
 				continue;
 			}
 			for (int i=0; i<2; i++) {
-				System.out.println("Informe o númeor do peão qeu deseja mover: ");
+				System.out.println("Informe o nï¿½meor do peï¿½o qeu deseja mover: ");
 				numPeao = ler.nextInt();
 				System.out.println("1 -> Latitude + \t2 -> Latitude -");
 				System.out.println("3 -> Longitude + \\t4 -> Longitude -");
-				System.out.println("Em que direção qeu deseja mover: ");
+				System.out.println("Em que direï¿½ï¿½o qeu deseja mover: ");
 				movimento = ler.nextInt();
 				if (i == 0)
 					tabuleiro.movimentaPeaoTabuleiro(jogadores[jogDaVez] ,numPeao, movimento, dado1 );
