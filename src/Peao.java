@@ -1,5 +1,6 @@
+package model;
 
-public class Peao {
+class Peao {
 	
 	private final int poloInicial;
 	private final String cor;
