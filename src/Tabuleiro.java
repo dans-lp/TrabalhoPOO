@@ -1,21 +1,20 @@
-import java.util.SortedMap;
+package model;
 
-import javax.lang.model.util.ElementScanner14;
-import javax.naming.LimitExceededException;
-
-public class Tabuleiro {
+class Tabuleiro {
 	private Pecas coord[][];
-	private int polos, casas;
+	private Pecas polo[];
+	private int colunas, linhas;
+	private String hemisferio;
 	
 	public Tabuleiro() {
-		polos = 2;
-		casas = 73;
-		coord = new Pecas[polos][casas];
+		linhas = 6;
+		colunas = 12;
+		coord = new Pecas[colunas][linhas];
+		polo = new Pecas[7];
 		
-		for (int i=0; i<polos; i++)
-			for (int j=0; j<casas; j++) {
+		for (int i=0; i<colunas; i++)
+			for (int j=0; j<linhas; j++) {
 				coord[i][j] = new Pecas();
-				if (j==42 || j==48 || j==52 || j==58 || j==63 || j== 69)
 					coord[i][j].adicionaMetaNaCoord(new Meta());
 			}
 	}
@@ -29,12 +28,10 @@ public class Tabuleiro {
 		coord[polo][casa].adicionaPeaoNaCoord(jogador, numPeao);
 	}
 	
-
 	private void removePeca(Jogador jogador, int polo, int casa) {
 		coord[polo][casa].retiraPeao(jogador);
 	}
 	
-
 	private void movimentaLatitude(int qtdCasas, Jogador jogador, int numPeao){
 		
 		Peao peaoJ = new Peao();
@@ -62,7 +59,7 @@ public class Tabuleiro {
 
 		return;
 	}
-
+	
 	private void movimentaLongitude(int qtdCasas, Jogador jogador, int numPeao){
 		Peao peaoJ = new Peao();
 		int coordP;
@@ -84,7 +81,7 @@ public class Tabuleiro {
 
 		return;
 	}
-
+	
 	public void movimentaPeaoTabuleiro(Jogador jogador, int numPeao, int movimento, int qtdCasas) {
 		if(movimento <= 2  )
 		{
