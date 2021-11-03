@@ -1,6 +1,7 @@
+package model;
 import java.util.Scanner;
 
-public class Padrao {
+class Padrao {
 	
 	private Tabuleiro tabuleiro;
 	private Jogador[] jogadores;
@@ -20,7 +21,7 @@ public class Padrao {
 		tabuleiro.iniciaPolo(jogadores[0], jogadores[0].poloDoJogdor());
 		tabuleiro.iniciaPolo(jogadores[1], jogadores[1].poloDoJogdor());
 		
-		System.out.println("Jogadores lan�am os dados, quem obter o maior n�mero inicia o jogo.");
+		System.out.println("Jogadores lançam os dados, quem obter o maior número inicia o jogo.");
 		for (int i=0; i<jogadores.length; i++) {
 			dado1 = dados.jogaDado1();
 			System.out.println("Jogador " + (i+1) + "obteve " + dado1);
@@ -49,11 +50,11 @@ public class Padrao {
 				continue;
 			}
 			for (int i=0; i<2; i++) {
-				System.out.println("Informe o n�meor do pe�o qeu deseja mover: ");
+				System.out.println("Informe o númeor do peão qeu deseja mover: ");
 				numPeao = ler.nextInt();
 				System.out.println("1 -> Latitude + \t2 -> Latitude -");
 				System.out.println("3 -> Longitude + \\t4 -> Longitude -");
-				System.out.println("Em que dire��o qeu deseja mover: ");
+				System.out.println("Em que direção qeu deseja mover: ");
 				movimento = ler.nextInt();
 				if (i == 0)
 					tabuleiro.movimentaPeaoTabuleiro(jogadores[jogDaVez] ,numPeao, movimento, dado1 );
