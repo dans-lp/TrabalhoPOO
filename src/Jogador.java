@@ -1,11 +1,12 @@
+package model;
 
-public class Jogador {
+class Jogador {
 	
 	private static int totJog = 0;
 	private int numJog;
 	private final String cor;
 	private Peao[] peao;
-	private int polo, metas, exploradores, conquistas;
+	private int polo, metas, exploradores;
 	
 	public Jogador (String corJogador, int numPolo) {
 		totJog++;
@@ -18,7 +19,6 @@ public class Jogador {
 		}
 		metas = 0;
 		exploradores = 0;
-		conquistas = 0;
 	}
 	
 	public static int totalDeJogadores() {
@@ -60,15 +60,6 @@ public class Jogador {
 	
 	public void capturouExploradorJogador() {
 		exploradores++;
-		return;
-	}
-	
-	public int qtdConquistasJogador() {
-		return conquistas;
-	}
-	
-	public void conquistouPoloJogador() {
-		conquistas++;
 		return;
 	}
 	
