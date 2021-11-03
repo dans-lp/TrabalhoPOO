@@ -1,6 +1,7 @@
+package model;
 import java.util.Scanner;
 
-public class Jogo {
+class Jogo {
 
 	public static void main(String[] args) {
 		
@@ -14,7 +15,7 @@ public class Jogo {
 			qtd = ler.nextInt();
 			if (qtd == 2 || qtd == 4)
 				break;
-			System.out.println("Quantidade de jogadores inv·lida! Tente novamente.");
+			System.out.println("Quantidade de jogadores inv√°lida! Tente novamente.");
 		}
 		
 		jogadores = new Jogador[qtd];
@@ -35,11 +36,11 @@ public class Jogo {
 					// Chama modo Competitivo
 					break;
 				}
-				System.out.println("Modo inv·lido! Tente novamente!");
+				System.out.println("Modo inv√°lido! Tente novamente!");
 			}
 		}
 		
-		//Chama modo Padr„o
+		//Chama modo Padr√£o
 		return;
 	}
 
