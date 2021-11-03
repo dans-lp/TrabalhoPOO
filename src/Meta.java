@@ -1,5 +1,6 @@
+package model;
 
-public class Meta {
+class Meta {
 	
 	private static int qtd; //Max: 12
 	private boolean disponivel;
