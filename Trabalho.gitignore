@@ -1,0 +1,4 @@
+#  Settings do Eclipse
+*.classpath
+*.project
+.settings
