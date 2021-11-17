@@ -1,5 +1,6 @@
+package model;
 
-public class Dados {
+class Dados {
 	
 	private static int dado1;
 	private static int dado2;
@@ -26,17 +27,17 @@ public class Dados {
 
 	public boolean comparaDados() {
 	
-		System.out.println("O valor do Primeiro dado é: "+ dado1);
-		System.out.println("O valor do Segundo dado é: "+ dado2);
+		System.out.println("O valor do Primeiro dado Ã©: "+ dado1);
+		System.out.println("O valor do Segundo dado Ã©: "+ dado2);
 		
 		if(dado1 == dado2) {
-			System.out.println("Números repetidos!");
+			System.out.println("NÃºmeros repetidos!");
 			int index = (int) (Math.random() * cores.length);
 			System.out.println("Resultado do dado colorido: "+cores[index]);
 			return true;
 		}
 		else {
-			System.out.println("O valor de casas a ser andado é de: "+ SomaDados());
+			System.out.println("O valor de casas a ser andado Ã© de: "+ SomaDados());
 			return false;
 		}
 	}
