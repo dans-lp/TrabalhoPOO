@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 class Tabuleiro {
 	private Pecas coord[][];
