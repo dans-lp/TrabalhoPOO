@@ -1,27 +1,31 @@
 package Model;
 import java.util.Scanner;
 
-class Padrao {
+ class Padrao {
 	
 	private Tabuleiro tabuleiro;
+	private Tabuleiro tabuleiro2;
 	private Jogador[] jogadores;
 	private Dados dados;
 	private int dado1, dado2;
 	
 	public Padrao(Jogador[] lista) {
 		tabuleiro = new Tabuleiro();
+		tabuleiro2 = new Tabuleiro();
 		jogadores = new Jogador[2];
 		jogadores = lista;
 		this.comecarJogoPadrao();
 	}
 	
 	private void comecarJogoPadrao() {
+	
 		int jogComeca = 0, maior = 0;
 		
-		tabuleiro.iniciaPolo(jogadores[0]);
-		tabuleiro.iniciaPolo(jogadores[1]);
 		
-		System.out.println("Jogadores lançam os dados, quem obter o maior número inicia o jogo.");
+		tabuleiro.iniciaPolo(jogadores[0]);
+		tabuleiro2.iniciaPolo(jogadores[1]);
+		
+		System.out.println("Jogadores lanï¿½am os dados, quem obter o maior nï¿½mero inicia o jogo.");
 		for (int i=0; i<jogadores.length; i++) {
 			dado1 = dados.jogaDado1();
 			System.out.println("Jogador " + (i+1) + "obteve " + dado1);
@@ -50,11 +54,11 @@ class Padrao {
 				continue;
 			}
 			for (int i=0; i<2; i++) {
-				System.out.println("Informe o númeor do peão qeu deseja mover: ");
+				System.out.println("Informe o nï¿½meor do peï¿½o qeu deseja mover: ");
 				numPeao = ler.nextInt();
 				System.out.println("1 -> Latitude + \t2 -> Latitude -");
 				System.out.println("3 -> Longitude + \\t4 -> Longitude -");
-				System.out.println("Em que direção qeu deseja mover: ");
+				System.out.println("Em que direï¿½ï¿½o qeu deseja mover: ");
 				movimento = ler.nextInt();
 				if (i == 0)
 					tabuleiro.movimentaPeaoTabuleiro(jogadores[jogDaVez] ,numPeao, movimento, dado1 );

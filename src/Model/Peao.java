@@ -1,27 +1,33 @@
 package Model;
 
-class Peao {
+public class Peao {
 	
 	private final int poloInicial;
 	private final String cor;
 	private final int jogador;
 	private int polo;
-	private int coord;
+	private int coordLat;
+	private int coordLong;
+	private int poloatual;
 	
+	/*
 	public Peao() {
 		poloInicial = 0;
 		cor = null;
 		jogador = 0;
 		polo = 0;
-		coord = 0;
+		coordLat = 0;
+		coordLong = 0;
 	}
+	*/
 	
 	public Peao(int numPolo, int numJogador, String corPeao){
 		poloInicial = numPolo;
 		cor = corPeao;
         jogador = numJogador;
         polo = poloInicial;
-        coord = 0;
+        coordLat = 0;
+        coordLong = 0;
     }
 	
 	public int poloInicialDoPeao() {
@@ -45,18 +51,49 @@ class Peao {
 		return;
 	}
 	
-	public int coordenadaDoPeao() {
-		return coord;
+	public int coordenadaDoPeaoLat() {
+		return coordLat;
 	}
 	
-	public void moverPeao(int coordenada) {
-		coord = coordenada;
+	public int coordenadaDoPeaoLong() {
+		return coordLong;
+	}
+	
+	public void moverPeaoLat(int coordenada) {
+		coordLat = coordenada;
 		return;
 	}
 	
+	public void moverPeaoLong(int coordenada) {
+		coordLong = coordenada;
+		return;
+	}
+	
+	/*
 	public void exibePeao() {
 		System.out.printf("Peao do jogador %d \nPolo: %d \tCoordenada: %d", jogador, polo, coord);
 		return;
+	}
+	*/
+	
+	public void trocatabuleiro (int numMov, Jogador jogador, int Numpeao, int qntdecasas) {
+		if (poloatual == 1) {
+			poloatual = 2;
+		} 
+		else 
+		{
+			poloatual = 1;	
+		}
+	return;
+	}
+	
+	int indicatabuleiro(int poloatual) {
+		if(this.poloInicial == poloatual) {
+			return	poloInicial;
+		} 
+		else {
+			return poloatual;
+		}	
 	}
 	
 }
