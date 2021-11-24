@@ -26,11 +26,11 @@ class Dados {
 	}
 
 
-	public Cor jogaDadoColorido(){
+	public static Cor jogaDadoColorido(){
 		int nCor;
 		nCor = (int) (Math.random() * 4);
 		System.out.println("!!!!! TESTE COR: "+ nCor);
-		return Cor.values(nCor);
+		return Cor.values()[nCor];
 	}
 
 
