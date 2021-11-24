@@ -5,7 +5,8 @@ class Dados {
 	private static int dado1;
 	private static int dado2;
 	private static int total;
-	private static String cores[] = {"preto","verde","amarelo", "azul"};
+	
+	
 
 	
 	public int jogaDado1() {
@@ -25,19 +26,27 @@ class Dados {
 	}
 
 
+	public Cor jogaDadoColorido(){
+		int nCor;
+		nCor = (int) (Math.random() * 4);
+		System.out.println("!!!!! TESTE COR: "+ nCor);
+		return Cor.values(nCor);
+	}
+
+
+
 	public boolean comparaDados() {
 	
-		System.out.println("O valor do Primeiro dado é: "+ dado1);
-		System.out.println("O valor do Segundo dado é: "+ dado2);
+		System.out.println("O valor do Primeiro dado �: "+ dado1);
+		System.out.println("O valor do Segundo dado �: "+ dado2);
 		
 		if(dado1 == dado2) {
 			System.out.println("Números repetidos!");
-			int index = (int) (Math.random() * cores.length);
-			System.out.println("Resultado do dado colorido: "+cores[index]);
+		
 			return true;
 		}
 		else {
-			System.out.println("O valor de casas a ser andado é de: "+ SomaDados());
+			System.out.println("O valor de casas a ser andado � de: "+ SomaDados());
 			return false;
 		}
 	}

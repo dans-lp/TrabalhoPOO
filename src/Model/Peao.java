@@ -2,98 +2,88 @@ package Model;
 
 public class Peao {
 	
-	private final int poloInicial;
-	private final String cor;
-	private final int jogador;
-	private int polo;
-	private int coordLat;
-	private int coordLong;
-	private int poloatual;
+	private final Cor cor;
+	private final Jogador jogador;
+	private final int num;
+	private final byte poloInicial;
+	private final byte poloOposto;
+	private byte poloAtual;
+	private byte casa;
 	
-	/*
-	public Peao() {
-		poloInicial = 0;
-		cor = null;
-		jogador = 0;
-		polo = 0;
-		coordLat = 0;
-		coordLong = 0;
-	}
-	*/
-	
-	public Peao(int numPolo, int numJogador, String corPeao){
-		poloInicial = numPolo;
-		cor = corPeao;
-        jogador = numJogador;
-        polo = poloInicial;
-        coordLat = 0;
-        coordLong = 0;
+	public Peao(Jogador dono, int numPeao){
+		cor = dono.corDoJogador();
+		jogador = dono;
+		num = numPeao;
+		poloInicial = dono.poloInicialDoJogdor();
+		poloAtual = casa = poloInicial;
+		if (poloInicial == 0) 
+			poloOposto = 73;
+		else 
+			poloOposto = 0;
     }
 	
-	public int poloInicialDoPeao() {
-		return poloInicial;
-	}
-	
-	public String corDoPeoa() {
+	public Cor corDoPeao() {
 		return cor;
 	}
 	
-	public int numJogadorPeao() {
+	public Jogador donoDoPeao() {
 		return jogador;
 	}
 	
-	public int poloDoPeao() {
-		return polo;
+	public int numeroDoPeao() {
+		return num;
 	}
 	
-	public void moverParaPoloPeao(int numPolo) {
-		polo = numPolo;
-		return;
+	public byte poloInicialDoPeao() {
+		return poloInicial;
 	}
 	
-	public int coordenadaDoPeaoLat() {
-		return coordLat;
+	public byte poloOpostoDoPeao() {
+		return poloOposto;
 	}
 	
-	public int coordenadaDoPeaoLong() {
-		return coordLong;
+	public byte poloAtualDoPeao() {
+		return poloAtual;
 	}
 	
-	public void moverPeaoLat(int coordenada) {
-		coordLat = coordenada;
-		return;
-	}
-	
-	public void moverPeaoLong(int coordenada) {
-		coordLong = coordenada;
-		return;
-	}
-	
-	/*
-	public void exibePeao() {
-		System.out.printf("Peao do jogador %d \nPolo: %d \tCoordenada: %d", jogador, polo, coord);
-		return;
-	}
-	*/
-	
-	public void trocatabuleiro (int numMov, Jogador jogador, int Numpeao, int qntdecasas) {
-		if (poloatual == 1) {
-			poloatual = 2;
-		} 
+	public void trocaDePolo() {
+		if (poloAtual == 0) 
+			poloAtual = 73;
 		else 
-		{
-			poloatual = 1;	
-		}
-	return;
+			poloAtual = 0;
+		return;
 	}
 	
-	int indicatabuleiro(int poloatual) {
-		if(this.poloInicial == poloatual) {
-			return	poloInicial;
-		} 
-		else {
-			return poloatual;
-		}	
+	public byte casaDoPeao() {
+		return casa;
 	}
+	
+	public void mudarCasaDoPeao(byte novaCasa) {
+		casa = novaCasa;
+		return;
+	}
+	
+	public void exibePeao() {
+		System.out.printf("Peao do jogador %d \nPolo: %d \tCasa: %d\n", jogador.numeroDoJogador(), poloInicial, casa);
+		return;
+	}
+	
+	/*public void trocatabuleiro (int numMov, Jogador jogador, int Numpeao, int qntdecasas) {
+		if (poloatual== 1) {
+			poloatual = 2;
+		} else {
+			poloatual =1 ;
+		
+	}
+	return;
+}
+	public void indicatabuleiro(int poloatual) {
+		if(poloatual == 1) {
+			//tabuleiro1;
+			
+		} else {
+			//tabuleiro2;
+		}
+	}*/
 	
 }

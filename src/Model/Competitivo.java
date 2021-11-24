@@ -1,7 +1,7 @@
 package Model;
 import java.util.Scanner;
 
- class Padrao {
+ class Competitivo {
 	
 	private Tabuleiro tabuleiro;
 	private Jogador[] jogadores;
@@ -9,20 +9,22 @@ import java.util.Scanner;
 	private int dado1, dado2;
 	
 	
-	public Padrao(Jogador[] listaDeJogadores) {
+	public Competitivo(Jogador[] listaDeJogadores) {
 		tabuleiro = new Tabuleiro();
-		jogadores = new Jogador[2];
+		jogadores = new Jogador[4];
 		jogadores = listaDeJogadores;
-		comecarJogoPadrao();
+		comecarJogoCompetitivo();
 	}
 	
-	private void comecarJogoPadrao() {
+	private void comecarJogoCompetitivo() {
 	
 		int jogComeca = 0, maior = 0;
 		
 		
 		tabuleiro.iniciaPolo(jogadores[0]);
 		tabuleiro.iniciaPolo(jogadores[1]);
+    tabuleiro.iniciaPolo(jogadores[2]);
+    tabuleiro.iniciaPolo(jogadores[3]);
 		
 		System.out.println("Jogadores lancam os dados, quem obter o maior numero inicia o jogo.");
 		for (int i=0; i<jogadores.length; i++) {
@@ -35,10 +37,10 @@ import java.util.Scanner;
 		}
 		System.out.println("Jogador " + (jogComeca+1) + "obteve o maior numero: " + maior);
 		
-		this.jogoPadrao(jogComeca);
+		this.jogoCompetitivo(jogComeca);
 	}
 	
-	private void jogoPadrao(int jogDaVez) {
+	private void jogoCompetitivo(int jogDaVez) {
 		boolean dadoColorido, fimDeJogo = false;
 		int numPeao, movimento;
 		Cor corDado;
@@ -56,17 +58,12 @@ import java.util.Scanner;
 					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogador);
 
 				}
-				
-			
 
 				fimDeJogo = this.checkFimDoJogo(jogDaVez);
 				continue;
 			}
 
 			
-
-
-
 			for (int i=0; i<2; i++) {
 				System.out.println("Informe o número do peão que deseja mover: ");
 				numPeao = ler.nextInt();
@@ -83,14 +80,14 @@ import java.util.Scanner;
 				fimDeJogo = this.checkFimDoJogo(jogDaVez);
 				
 				if (!fimDeJogo) {
-					if (jogDaVez == 0)
-						jogDaVez = 1;
+					if (jogDaVez != 3)
+						jogDaVez += 1;
 					else
 						jogDaVez = 0;
 				}
 			}
 		}
-		this.fimDeJogoPadrao();
+		this.fimDeJogoCompetitivo();
 	}
 	
 	private boolean checkFimDoJogo(int numJogador) {
@@ -99,22 +96,31 @@ import java.util.Scanner;
 		return false;
 	}
 	
-	private void fimDeJogoPadrao() {
+	private void fimDeJogoCompetitivo() {
 		System.out.println("Fim de Jogo! \\nContagem de pontos.."); 
 		
-		int j1, j2;
+		int j[] = new int[4]; 
+    Jogador jVencedor;
 
-		j1 = jogadores[0].qtdMetasJogador() + jogadores[0].qtdExploradoresJogador();
-		j2 = jogadores[1].qtdMetasJogador() + jogadores[1].qtdExploradoresJogador();
+		j[0] = jogadores[0].qtdMetasJogador() + jogadores[0].qtdExploradoresJogador();
+		j[1] = jogadores[1].qtdMetasJogador() + jogadores[1].qtdExploradoresJogador();
+		j[2] = jogadores[2].qtdMetasJogador() + jogadores[2].qtdExploradoresJogador();
+		j[3] = jogadores[3].qtdMetasJogador() + jogadores[3].qtdExploradoresJogador();
 		
 		jogadores[0].exibeJogador();
 		jogadores[1].exibeJogador();
+		jogadores[2].exibeJogador();
+		jogadores[3].exibeJogador();
 
-		if(j1 > j2)
-			System.out.println("Jogador 1 ganhou o jogo!");
-		else if(j2 > j1)
-			System.out.println("Jogador 2 ganhou o jogo!");
-		else	
-			System.out.println("!!!!Empate!!!!!");			
-	}
+		int maior = j[0];
+    jVencedor = jogadores[0];
+    for(int i = 1; i < 4; i++){
+      if(maior < j[i]){
+        jVencedor = jogadores[i];
+        maior = j[i];
+      }
+    }
+    System.out.println("Jogador" + jVencedor.corJogador + "ganhou o jogo!");
+       
+ 	}
 }

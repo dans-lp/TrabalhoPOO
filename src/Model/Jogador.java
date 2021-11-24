@@ -3,20 +3,23 @@ package Model;
 class Jogador {
 	
 	private static int totJog = 0;
-	private int numJog;
-	private final String cor;
-	private Peao[] peao;
-	private int polo, metas, exploradores;
+	private final int numJog;
+	private final Cor cor;
+	private final Peao[] peao;
+	private final byte polo;
+	private byte metas, exploradores;
 	
-	public Jogador (String corJogador, int numPolo) {
+	public Jogador (Cor corJogador) {
 		totJog++;
 		numJog = totJog;
 		cor = corJogador;
-		polo = numPolo;
+		if (cor == Cor.preto || cor == Cor.verde)
+			polo = 0;
+		else
+			polo = 73;
 		peao = new Peao[6];
-		for (int i=0; i<peao.length; i++) {
-			peao[i] = new Peao(polo, numJog, cor);
-		}
+		for (int i=0; i<peao.length; i++)
+			peao[i] = new Peao(this, i+1);
 		metas = 0;
 		exploradores = 0;
 	}
@@ -29,23 +32,23 @@ class Jogador {
 		return numJog;
 	}
 	
-	public String corDoJogador() {
+	public Cor corDoJogador() {
 		return cor;
 	}
 	
-	public Peao peaodoJogador(int numPeao) {
+	public Peao retornaPeaoDoJogador(int numPeao) {
 		return peao[numPeao-1];
 	}
 	
-	public Peao[] todosPeoesJoagdor() {
+	public Peao[] retornaListaDePeoesDoJoagdor() {
 		return peao;
 	}
 	
-	public int poloDoJogdor() {
+	public byte poloInicialDoJogdor() {
 		return polo;
 	}
 	
-	public int qtdMetasJogador() {
+	public byte qtdMetasJogador() {
 		return metas;
 	}
 	
@@ -54,17 +57,17 @@ class Jogador {
 		return;
 	}
 	
-	public int qtdExploradoresJogador() {
+	public byte qtdExploradoresJogador() {
 		return exploradores;
 	}
 	
-	public void capturouExploradorJogador() {
+	public void conquistouPoloOpostoJogador() {
 		exploradores++;
 		return;
 	}
 	
 	public void exibeJogador() {
-		System.out.printf("Jogador %d \tCor: %s \tPontos: %d", numJog, cor, metas+exploradores);
+		System.out.printf("Jogador %d \tCor: %s \tPontos: %d\n", numJog, cor, metas+exploradores);
 		return;
 	}
 }
