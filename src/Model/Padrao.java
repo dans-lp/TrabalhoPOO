@@ -1,4 +1,4 @@
-package Model;
+package model;
 import java.util.Scanner;
 
  class Padrao {
@@ -50,10 +50,10 @@ import java.util.Scanner;
 			dadoColorido = dados.comparaDados();
 			
 			if (dadoColorido) {
-				corDado = Dado.jogaDadoColorido();
+				corDado = Dados.jogaDadoColorido();
 				
 				if(corDado == jogadores[jogDaVez].corDoJogador()){
-					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogador);
+					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogadores[jogDaVez]);
 
 				}
 				
