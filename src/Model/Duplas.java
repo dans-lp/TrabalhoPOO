@@ -1,7 +1,7 @@
-package model;
+package Model;
 import java.util.Scanner;
 
-public class Duplas {
+class Duplas {
 	private Tabuleiro tabuleiro;
 	private Jogador[] jogadores;
 	private Dados dados;
@@ -52,28 +52,48 @@ public class Duplas {
 			dado2 = dados.jogaDado2();
 			dadoColorido = dados.comparaDados();
 			
-			if (dadoColorido) {
-				corDado = Dados.jogaDadoColorido();
-				
-				if(corDado == jogadores[jogDaVez].corDoJogador()){
-					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogadores[jogDaVez]);
-
-				}
-				
-				fimDeJogo = this.checkFimDoJogo(jogDaVez);
-				continue;
-			}
 			switch (jogDaVez%2) {
 			case 1:
 				numParceiro = jogDaVez-1;
 				break;
-        
+				
 			case 0:
 				numParceiro = jogDaVez + 1;
 				break;
 				
 			default:
 				break;
+			}
+			
+			if (dadoColorido) {
+				corDado = Dados.jogaDadoColorido();
+				
+				// * implementar quando estiver feita a orientação a eventos
+				if(corDado == jogadores[jogDaVez].corDoJogador()){
+					// numPeao = ;
+					Peao pJogador = jogadores[jogDaVez].retornaPeaoDoJogador(numPeao);
+					tabuleiro.movePeaoPolo(jogadores[jogDaVez], pJogador, jogadores[jogDaVez].poloInicialDoJogdor() == 0 ? 73: 0);
+					
+				}
+				else if(corDado == jogadores[numParceiro].corDoJogador()){
+					Peao pParceiro = jogadores[numParceiro].retornaPeaoDoJogador(numPeao_parceiro);
+					tabuleiro.movePeaoPolo(jogadores[numParceiro], pParceiro, jogadores[numParceiro].poloInicialDoJogdor());
+				}
+				
+				else{
+					Peao pOponente;
+					Jogador jOponente =  pOponente.donoDoPeao();
+					if(corDado == jOponente.corDoJogador()){
+						tabuleiro.movePeaoPolo(jogadores[jOponente.numeroDoJogador()], pOponente, jogadores[jOponente.numeroDoJogador()].poloInicialDoJogdor());
+						
+					}
+				}
+
+				fimDeJogo = this.checkFimDoJogo(jogDaVez);
+				continue;
+				
+				fimDeJogo = this.checkFimDoJogo(jogDaVez);
+				continue;
 			}
 			for (int i=0; i<2; i++) {
 				System.out.println("Informe o número do peão que deseja mover: ");

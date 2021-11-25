@@ -1,7 +1,5 @@
 package Model;
 
-import javax.lang.model.util.ElementScanner14;
-
 class Tabuleiro {
 	private final int TAM = 146; // total de casas tabuleiro
 	private final int MET = 73; //qtd casas cada lado 
@@ -45,42 +43,106 @@ class Tabuleiro {
 		return casa;
 	}
 	
+	public void movePeaoPolo(Jogador jogador, Peao Pjogador, int polo){
+		casa[polo].posicionaPeaoPoloIni(Pjogador);
+			if(polo != Pjogador.poloInicialDoPeao())
+				jogador.conquistouPoloOpostoJogador();
+	}
 
-	private void trocaCasa(Peao Poponente, Peao Pjogador, int numPeao, int casaIni, int casaFin, Jogador jogador ){
-		Pjogador = casa[casaIni].retiraPeao(numPeao, jogador);
+	// Jogo Modo Padrão ou Competitivo
+	private void trocaCasa(int numPeao, int casaIni, int casaFin, Jogador jogador ){
+		Peao Pjogador = casa[casaIni].retiraPeao(numPeao, jogador);
+		Peao Poponente;
+		
+		String cs;
 		
 		if(casaFin == 0 || casaFin == 73){
-			casa[casaFin].posicionaPeaoPoloIni(Pjogador);
-			if(casaFin != Pjogador.poloInicialDoPeao())
-				jogador.conquistouPoloOpostoJogador();
+			trocaCasa(numPeao, casaIni, casaFin, jogador);
+		}
+		else {
+			Poponente = casa[casaFin].posicionaPeaoNaCasa(jogador, numPeao);
+			
+			
+			if(Poponente != null){
+				if(Poponente.donoDoPeao() != jogador){
+					casa[Poponente.poloInicialDoPeao()].posicionaPeaoPoloIni(Poponente);
+					Poponente.mudarCasaDoPeao(Poponente.poloInicialDoPeao());
+				}
+				else{
+					cs = Carta.SorteiaCarta();
+					
+					if(cs == "C04.png"){
+						for(int i = 0; i < 6; i++){
+							if(jogador.retornaPeaoDoJogador(i).casaDoPeao() == jogador.poloInicialDoJogdor())		
+								movimentaPeao(numPeao, 1, casaIni, casaFin, 3, jogador);
+
+						}
+					}
+					else if(cs == "C15.png"){
+						for(int i = 0; i < 6; i++){
+							if(jogador.retornaPeaoDoJogador(i).casaDoPeao() == jogador.poloInicialDoJogdor()){
+
+								movePeaoPolo(jogador, Pjogador, Poponente.poloInicialDoPeao());
+							}		
+							
+						}
+						
+					}
+				}
+			}
+		}
+		Pjogador.mudarCasaDoPeao(casaFin);
+	}
+
+	// Jogo Modo Duplas
+	private void trocaCasa(int numPeao, int casaIni, int casaFin, Jogador jogador, Jogador parceiro){
+		Peao Pjogador = casa[casaIni].retiraPeao(numPeao, jogador, parceiro);
+		Peao Poponente;
+		
+		if(casaFin == 0 || casaFin == 73){
+			movePeaoPolo(jogador, Pjogador, casaFin);
 		}
 		else {
 			Poponente = casa[casaFin].posicionaPeaoNaCasa(jogador, numPeao);
 			if(Poponente != null){
 				casa[Poponente.poloInicialDoPeao()].posicionaPeaoPoloIni(Poponente);
-				Poponente.casaDoPeao(Poponente.poloInicialDoPeao());
+				Poponente.mudarCasaDoPeao(Poponente.poloInicialDoPeao());
 			}
 		}
-		Pjogador.casaDoPeao(casaFin);
+		Pjogador.mudarCasaDoPeao(casaFin);
 	}
 
 	// Jogo Modo Padrão ou Competitivo
 	public boolean movimentaPeao(int numPeao, int tipoMov, int casaIni, int casaFin, int qtdCasas, Jogador jogador) {
-		Peao Pjogador;
-		Peao Poponente;
-		boolean podeMover;
+		boolean podeMover = false;
 		
 		if(tipoMov == 1){
 			podeMover = procuraCaminhoLatitude(casaIni, casaFin, qtdCasas, jogador);
-			trocaCasa(Poponente, Pjogador, numPeao, casaIni, casaFin, jogador);
+			trocaCasa(numPeao, casaIni, casaFin, jogador);
 				
 		}
 		else if(tipoMov == 2){
 			podeMover = procuraCaminhoLongitude(casaIni, casaFin, qtdCasas, jogador);
-			trocaCasa(Poponente, Pjogador, numPeao, casaIni, casaFin, jogador);
+			trocaCasa(numPeao, casaIni, casaFin, jogador);
 		}
-		return false;
+		return podeMover;
 	}
+	
+	// Jogo Modo Duplas
+		public boolean movimentaPeao(int numPeao, int tipoMov, int casaIni, int casaFin, int qtdCasas, Jogador jogador, Jogador parceiro) {
+			boolean podeMover = false;
+			
+			if(tipoMov == 1){
+				podeMover = procuraCaminhoLatitude(casaIni, casaFin, qtdCasas, jogador, parceiro);
+				trocaCasa(numPeao, casaIni, casaFin, jogador, parceiro);
+					
+			}
+			else if(tipoMov == 2){
+				podeMover = procuraCaminhoLongitude(casaIni, casaFin, qtdCasas, jogador, parceiro);
+				trocaCasa(numPeao, casaIni, casaFin, jogador, parceiro);
+			}
+			return podeMover;
+		}
 	
 	private void conectaLat() {
 		// Conecta o polo com todas as casas a sua volta

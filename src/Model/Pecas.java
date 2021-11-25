@@ -1,4 +1,4 @@
-package model;
+package Model;
 
 class Pecas {
 	
@@ -78,7 +78,7 @@ class Pecas {
 		Peao pAdv = null;
 		Cor cor = p.corDoPeao();
 		byte qtd = 0;
-		
+
 		// Posiciona o peão na casa
 		peoes[qtdPeoes] = p;
 		qtdPeoes++;
@@ -98,9 +98,15 @@ class Pecas {
 			for (int i=0; i<qtdPeoes; i++)
 				if (cor == peoes[i].corDoPeao())
 					qtd++;
+
 			if (qtd > 1)
 				fecharCasa();
-			if (temMetaNaCasa())
+			
+			if (temMetaNaCasa()){
+				MetaAtingida(jogador);
+				return p;
+			}
+			
 		}
 		return pAdv;
 	}
@@ -114,7 +120,7 @@ class Pecas {
 		Cor corParceiro = parceiro.corDoJogador();
 		Cor corAux;
 		int qtd = 0;
-			
+		
 		// Posiciona o peão na casa
 		peoes[qtdPeoes] = p;
 		qtdPeoes++;
@@ -125,20 +131,35 @@ class Pecas {
 			corAux = pAdv.corDoPeao(); 
 			if (corAux != cor && corAux != corParceiro) {
 				for (int j=i; peoes[j]!=null; j++)
-					peoes[j] = peoes[j+1];
+				peoes[j] = peoes[j+1];
 				break;
 			}
 		}
-			
+		
 		// Fecha a casa, se for o caso
 		if (qtdPeoes > 1) {
 			for (int i=0; i<qtdPeoes; i++) {
 				corAux = peoes[i].corDoPeao();
 				if (corAux == cor || corAux == corParceiro) 
-					qtd++;
+				qtd++;
 			}
+			
 			if (qtd > 1)
-				fecharCasa();
+			fecharCasa();
+			
+			if (temMetaNaCasa()){
+				qtd = 0;
+				for (int i=0; i<qtdPeoes; i++) {
+					corAux = peoes[i].corDoPeao();
+					if (corAux == cor) 
+					qtd++;
+				}
+				
+				if(qtd > 1){
+					MetaAtingida(jogador);	
+					return p;
+				}
+			}
 		}
 		return pAdv;
 	}

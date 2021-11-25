@@ -1,4 +1,4 @@
-package model;
+package Model;
 import java.util.Scanner;
 
  class Padrao {
@@ -40,10 +40,18 @@ import java.util.Scanner;
 	
 	private void jogoPadrao(int jogDaVez) {
 		boolean dadoColorido, fimDeJogo = false;
-		int numPeao, movimento;
+		int numPeao, movimento, numOponente;
 		Cor corDado;
 		Scanner ler = new Scanner(System.in);
 		
+		if (jogDaVez == 0) 
+			numOponente = 1;	
+		else 
+			numOponente = 0;
+
+
+
+
 		while(!fimDeJogo) {
 			dado1 = dados.jogaDado1();
 			dado2 = dados.jogaDado2();
@@ -52,21 +60,23 @@ import java.util.Scanner;
 			if (dadoColorido) {
 				corDado = Dados.jogaDadoColorido();
 				
+				// * implementar quando estiver feita a orientação a eventos
 				if(corDado == jogadores[jogDaVez].corDoJogador()){
-					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogadores[jogDaVez]);
-
+					// numPeao = ;
+					Peao pJogador = jogadores[jogDaVez].retornaPeaoDoJogador(numPeao);
+					tabuleiro.movePeaoPolo(jogadores[jogDaVez], pJogador, jogadores[numOponente].poloInicialDoJogdor());
+					
 				}
-				
-			
+				else if(corDado == jogadores[numOponente].corDoJogador()){
+					Peao pOponente = jogadores[numOponente].retornaPeaoDoJogador(numPeao_oponente);
+					tabuleiro.movePeaoPolo(jogadores[numOponente], pOponente, jogadores[numOponente].poloInicialDoJogdor());
+				}
 
 				fimDeJogo = this.checkFimDoJogo(jogDaVez);
 				continue;
 			}
-
+			// * <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 			
-
-
-
 			for (int i=0; i<2; i++) {
 				System.out.println("Informe o número do peão que deseja mover: ");
 				numPeao = ler.nextInt();

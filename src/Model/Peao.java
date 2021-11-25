@@ -1,6 +1,6 @@
-package model;
+package Model;
 
-public class Peao {
+class Peao {
 	
 	private final Cor cor;
 	private final Jogador jogador;

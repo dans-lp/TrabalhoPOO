@@ -1,7 +1,7 @@
-package model;
+package Model;
 import java.util.Scanner;
 
-public class Competitivo {
+class Competitivo {
 	private Tabuleiro tabuleiro;
 	private Jogador[] jogadores;
 	private Dados dados;
@@ -54,10 +54,19 @@ public class Competitivo {
 				corDado = Dados.jogaDadoColorido();
 				
 				if(corDado == jogadores[jogDaVez].corDoJogador()){
-					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogadores[jogDaVez]);
-
+					// numPeao = ;
+					Peao pJogador = jogadores[jogDaVez].retornaPeaoDoJogador(numPeao);
+					tabuleiro.movePeaoPolo(jogadores[jogDaVez], pJogador, jogadores[jogDaVez].poloInicialDoJogdor() == 0 ? 73: 0);
 				}
-
+				else{
+					Peao pOponente;
+					Jogador jOponente =  pOponente.donoDoPeao();
+					if(corDado == jOponente.corDoJogador()){
+						tabuleiro.movePeaoPolo(jogadores[jOponente.numeroDoJogador()], pOponente, jogadores[jOponente.numeroDoJogador()].poloInicialDoJogdor());
+						
+					}
+				}
+				
 				fimDeJogo = this.checkFimDoJogo(jogDaVez);
 				continue;
 			}
