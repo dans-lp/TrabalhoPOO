@@ -1,8 +1,7 @@
-package Model;
+package model;
 import java.util.Scanner;
 
- class Competitivo {
-	
+public class Competitivo {
 	private Tabuleiro tabuleiro;
 	private Jogador[] jogadores;
 	private Dados dados;
@@ -23,8 +22,8 @@ import java.util.Scanner;
 		
 		tabuleiro.iniciaPolo(jogadores[0]);
 		tabuleiro.iniciaPolo(jogadores[1]);
-    tabuleiro.iniciaPolo(jogadores[2]);
-    tabuleiro.iniciaPolo(jogadores[3]);
+		tabuleiro.iniciaPolo(jogadores[2]);
+		tabuleiro.iniciaPolo(jogadores[3]);
 		
 		System.out.println("Jogadores lancam os dados, quem obter o maior numero inicia o jogo.");
 		for (int i=0; i<jogadores.length; i++) {
@@ -52,10 +51,10 @@ import java.util.Scanner;
 			dadoColorido = dados.comparaDados();
 			
 			if (dadoColorido) {
-				corDado = Dado.jogaDadoColorido();
+				corDado = Dados.jogaDadoColorido();
 				
 				if(corDado == jogadores[jogDaVez].corDoJogador()){
-					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogador);
+					tabuleiro.movimentaPeao(numPeao, tipoMov, casaIni, casaFin, qtdCasas, jogadores[jogDaVez]);
 
 				}
 
@@ -100,7 +99,6 @@ import java.util.Scanner;
 		System.out.println("Fim de Jogo! \\nContagem de pontos.."); 
 		
 		int j[] = new int[4]; 
-    Jogador jVencedor;
 
 		j[0] = jogadores[0].qtdMetasJogador() + jogadores[0].qtdExploradoresJogador();
 		j[1] = jogadores[1].qtdMetasJogador() + jogadores[1].qtdExploradoresJogador();
@@ -113,14 +111,14 @@ import java.util.Scanner;
 		jogadores[3].exibeJogador();
 
 		int maior = j[0];
-    jVencedor = jogadores[0];
-    for(int i = 1; i < 4; i++){
-      if(maior < j[i]){
-        jVencedor = jogadores[i];
-        maior = j[i];
-      }
-    }
-    System.out.println("Jogador" + jVencedor.corJogador + "ganhou o jogo!");
+		Jogador jVencedor = jogadores[0];
+		for(int i = 1; i < 4; i++){
+			if(maior < j[i]){
+				jVencedor = jogadores[i];
+				maior = j[i];
+			}
+		}
+		System.out.println("Jogador" + jVencedor.corDoJogador() + "ganhou o jogo!");
        
- 	}
+	}
 }
