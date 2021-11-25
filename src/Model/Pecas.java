@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 class Pecas {
 	
@@ -100,6 +100,7 @@ class Pecas {
 					qtd++;
 			if (qtd > 1)
 				fecharCasa();
+			if (temMetaNaCasa())
 		}
 		return pAdv;
 	}
@@ -114,7 +115,7 @@ class Pecas {
 		Cor corAux;
 		int qtd = 0;
 			
-		// Posiciona o pe�o na casa
+		// Posiciona o peão na casa
 		peoes[qtdPeoes] = p;
 		qtdPeoes++;
 		
