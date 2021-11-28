@@ -13,7 +13,7 @@ import java.awt.geom.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class DesenhaTabuleiro extends JPanel implements MouseListener{
+class DesenhaTabuleiro extends JPanel implements MouseListener{
 	private Image tabuleiro;
 	private Image dado1[] = new Image[6];
 	private Image dado2[]=new Image[6];
