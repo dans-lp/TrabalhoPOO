@@ -1,6 +1,8 @@
 package view;
 
 import javax.swing.JPanel;
+
+
 import javax.swing.JFrame;
 import javax.imageio.*;
 import java.io.*;
@@ -13,17 +15,27 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 	private Image tabuleiro;
 	private Image dado1[] = new Image[6];
 	private Image dado2[]=new Image[6];
-	private Image cartas[] = new Image[18];
+	private Image cartas[] = new Image[18]; 
 	private int coordCasa[][] =new int[146][4];
 	private Shape ret[] = new Shape[147];
+	private Ellipse2D peao[];
+	private int modoJogo;
 	
-	public DesenhaTabuleiro() {
+	public DesenhaTabuleiro(int modoJogo) {
 		
 		coordCasa = montaCoordCasa();
 		CarregaTabuleiro();
 		addMouseListener(this);
 		// CarregaDados();
 		// CarregaCartas();
+		this.modoJogo = modoJogo;
+		JFrame janela = new JFrame("Latitude 90");
+		setBackground(Color.BLACK);
+		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		janela.getContentPane().add(this);
+		janela.setSize(860,730);
+		janela.setVisible(true);
+		
 		
 	}
 	/*TROCAR CAMINHO DAS IMAGENS*/
@@ -81,7 +93,7 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 		        }
 		    }
 	}
-	/* 1-2-7-8  13-14-19-20 25-26-31-32 37-38-43-44 49-50-55-56 61-62-67-68 */
+	
 	private int[][] montaCoordCasa(){
 		int lista[][] = {{182, 277, 72, 43}, {154, 300, 24, 20}, {154, 278, 24, 20}, {158, 261 , 26, 20},
 					    {186, 235, 26, 20}, {221, 227, 26, 20}, {256, 240, 26, 20}, {257, 278, 22, 20}, // 4
@@ -124,7 +136,159 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 		return lista;
 	}
 		
-	public void CarregarCasas() {
+	private void CarregarCasas() {
+        ret[0] = plotaRet(coordCasa[0][0], coordCasa[0][1], coordCasa[0][2], coordCasa[0][3], 0);
+        
+        for (int i=1; i<73; i+=6) {
+        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 0);
+            ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 0);
+        }
+        for (int i=3; i<64; i+=12) {
+        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], -45);
+    		ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], -15);
+    		ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], -45);
+    		ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], -15);
+        }
+        for(int i=5; i<66; i+=12) {
+        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 15);
+        	ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 45);
+        	ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], 15);
+    		ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], 50);
+        }
+        
+        ret[73] = plotaRet(coordCasa[73][0], coordCasa[73][1], coordCasa[73][2], coordCasa[73][3], 0);
+        
+        for (int i=74; i<146; i+=6) {
+        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 0);
+            ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 0);
+        }
+		
+	}
+	
+	private void CarregaPeao(int modoJogo, Graphics2D g2d){
+		int x ,y, raio = 8;
+		switch (modoJogo) {
+		case 1: //modo padrao
+			peao = new Ellipse2D[12];	
+			x = 0;
+			y = 0;
+				
+			for(int i =0;i<6;i++) {
+				g2d.setColor(Color.BLACK);
+				peao[i] = new Ellipse2D.Double(187+x,275+y,raio, raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[i]);
+	        	g2d.fill(peao[i]);
+					
+			}
+			x = 0;
+			y = 0;
+			for(int j=6; j<12;j++) {
+				g2d.setColor(Color.BLUE);
+				peao[j] = new Ellipse2D.Double(587+x,275+y,raio,raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[j]);
+	        	g2d.fill(peao[j]);
+				
+			}
+			break;
+		case 2: 
+			peao = new Ellipse2D[24];
+			x = 0;
+			y = 0;
+				
+			for(int i =0;i<12;i++) {
+					
+				g2d.setColor(Color.BLACK);
+				if(i>=6){
+					g2d.setColor(Color.GREEN);
+					if (i==6) {
+						y = -15;
+						x = 20;
+					}
+				}
+				peao[i] = new Ellipse2D.Double(187+x,275+y,raio,raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[i]);
+	        	g2d.fill(peao[i]);
+					
+			}
+			x = 0;
+			y = 0;
+			for(int j=12; j<24;j++) {
+				g2d.setColor(Color.BLUE);
+				if(j>=18) {
+					g2d.setColor(Color.YELLOW);
+					if (j==18) {
+						y = -15;
+						x = 20;
+					}
+				}
+				peao[j] = new Ellipse2D.Double(587+x,275+y, raio, raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[j]);
+	        	g2d.fill(peao[j]);
+				
+			}
+			break;
+		case 3:
+			peao = new Ellipse2D[24];
+			x = 0;
+			y = 0;
+				
+			for(int i =0;i<12;i++) {
+					
+				g2d.setColor(Color.BLACK);
+				if(i>=6){
+					g2d.setColor(Color.GREEN);
+					if (i==6) {
+						y = -15;
+						x = 20;
+					}
+				}
+				peao[i] = new Ellipse2D.Double(187+x,275+y,raio,raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[i]);
+	        	g2d.fill(peao[i]);
+					
+			}
+			x = 0;
+			y = 0;
+			for(int j=12; j<24;j++) {
+				g2d.setColor(Color.BLUE);
+				if(j>=18) {
+					g2d.setColor(Color.YELLOW);
+					if (j==18) {
+						y = -15;
+						x = 20;
+					}
+				}
+				peao[j] = new Ellipse2D.Double(587+x,275+y, raio, raio);
+				x+=raio;
+				y+=raio;
+				g2d.draw(peao[j]);
+	        	g2d.fill(peao[j]);
+				
+			}
+			break;
+		default:
+			
+		}
+	}
+	
+	private static Shape plotaRet(int coordX, int coordY, int largura, int altura, int anguloRot){
+		
+		Rectangle2D newRet = new Rectangle2D.Double(coordX, coordY, largura, altura);
+		AffineTransform tx = new AffineTransform();
+		tx = AffineTransform.getRotateInstance(Math.toRadians(anguloRot), coordX, coordY);
+		Shape retRotated = tx.createTransformedShape(newRet);
+		
+		return retRotated;
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -137,87 +301,23 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
         
         Graphics2D g2d =(Graphics2D) g;
         g2d.setColor(Color.RED);
-        
-        ret[0] = plotaRet(coordCasa[0][0], coordCasa[0][1], coordCasa[0][2], coordCasa[0][3], 0);
-        g2d.draw(ret[0]);
-        
-        for (int i=1; i<73; i+=6) {
-        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 0);
-            g2d.draw(ret[i]);
-            g2d.fill(ret[i]);
-            ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 0);
-            g2d.draw(ret[i+1]);
-            g2d.fill(ret[i+1]);
-        }
-        for (int i=3; i<64; i+=12) {
-        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], -45);
-    		g2d.draw(ret[i]);
-    		g2d.fill(ret[i]);
-    		ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], -15);
-    		g2d.draw(ret[i+1]);
-    		g2d.fill(ret[i+1]);
-    		ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], -45);
-    		g2d.draw(ret[i+6]);
-    		g2d.fill(ret[i+6]);
-    		ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], -15);
-    		g2d.draw(ret[i+1+6]);
-    		g2d.fill(ret[i+1+6]);
-        }
-        for(int i=5; i<66; i+=12) {
-        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 15);
+        CarregarCasas();
+     // Retangulo das cartas
+        ret[146] = new Rectangle2D.Double(360, 581, 123, 108);
+     // Mudar para ret.length
+        for (int i=0; i<73; i++) {
         	g2d.draw(ret[i]);
         	g2d.fill(ret[i]);
-        	ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 45);
-        	g2d.draw(ret[i+1]);
-        	g2d.fill(ret[i+1]);
-        	ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], 15);
-    		g2d.draw(ret[i+6]);
-    		g2d.fill(ret[i+6]);
-    		ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], 50);
-    		g2d.draw(ret[i+1+6]);
-    		g2d.fill(ret[i+1+6]);
         }
+        CarregaPeao(modoJogo, g2d);
         
-        ret[73] = plotaRet(coordCasa[73][0], coordCasa[73][1], coordCasa[73][2], coordCasa[73][3], 0);
-        g2d.draw(ret[73]);
         
-        for (int i=74; i<146; i+=6) {
-        	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 0);
-            g2d.draw(ret[i]);
-            g2d.fill(ret[i]);
-            ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 0);
-            g2d.draw(ret[i+1]);
-            g2d.fill(ret[i+1]);
-        }
-        
-        // Retangulo das cartas
-        ret[146] = new Rectangle2D.Double(360, 581, 123, 108);
-        g2d.draw(ret[146]);
 
     }
 	
-	private static Shape plotaRet(int coordX, int coordY, int largura, int altura, int anguloRot){
-		
-		Rectangle2D newRet = new Rectangle2D.Double(coordX, coordY, largura, altura);
-		AffineTransform tx = new AffineTransform();
-		tx = AffineTransform.getRotateInstance(Math.toRadians(anguloRot), coordX, coordY);
-		Shape retRotated = tx.createTransformedShape(newRet);
-		
-		return retRotated;
-	}
-	
 	/*APAGAR A MAIN SO PARA TESTE*/
 	public static void main(String[] args) {
-		
-		JFrame janela = new JFrame("Latitude 90");
-		DesenhaTabuleiro tabuleiro = new DesenhaTabuleiro();
-		tabuleiro.setBackground(Color.BLACK);
-		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		janela.getContentPane().add(tabuleiro);
-		janela.setSize(860,730);
-		janela.setVisible(true);
-		
-		//dados
+		DesenhaTabuleiro tab = new DesenhaTabuleiro(3);
 		
 	}
 	@Override
