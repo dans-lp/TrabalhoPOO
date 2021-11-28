@@ -1,15 +1,17 @@
 package view;
 
 import javax.swing.JPanel;
-
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.imageio.*;
 import java.io.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DesenhaTabuleiro extends JPanel implements MouseListener{
 	private Image tabuleiro;
@@ -19,30 +21,36 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 	private int coordCasa[][] =new int[146][4];
 	private Shape ret[] = new Shape[147];
 	private Ellipse2D peao[];
+	private JFrame janela;
 	private int modoJogo;
+	JButton jogar=new JButton("Dado");
+	
 	
 	public DesenhaTabuleiro(int modoJogo) {
 		
 		coordCasa = montaCoordCasa();
 		CarregaTabuleiro();
 		addMouseListener(this);
-		// CarregaDados();
+		//CarregaDados();
 		// CarregaCartas();
+		
 		this.modoJogo = modoJogo;
 		JFrame janela = new JFrame("Latitude 90");
+		
+		jogar.setBounds(700, 620,100, 35);
+		jogar.setFocusable(false);//desnecessario
+		janela.add(jogar);
 		setBackground(Color.BLACK);
 		janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		janela.getContentPane().add(this);
 		janela.setSize(860,730);
 		janela.setVisible(true);
-		
-		
 	}
 	/*TROCAR CAMINHO DAS IMAGENS*/
 	public void CarregaTabuleiro() {
 		
 		try {
-            tabuleiro = ImageIO.read(new File("Tabuleiro_1.jpg"));
+            tabuleiro = ImageIO.read(new File("C://Users//Caio//Desktop//Trabalho de poo/Tabuleiro_1.jpg"));
         }
         catch(IOException e) {
             System.out.println(e.getMessage());
@@ -94,6 +102,7 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 		    }
 	}
 	
+	/* 1-2-7-8  13-14-19-20 25-26-31-32 37-38-43-44 49-50-55-56 61-62-67-68 */
 	private int[][] montaCoordCasa(){
 		int lista[][] = {{182, 277, 72, 43}, {154, 300, 24, 20}, {154, 278, 24, 20}, {158, 261 , 26, 20},
 					    {186, 235, 26, 20}, {221, 227, 26, 20}, {256, 240, 26, 20}, {257, 278, 22, 20}, // 4
@@ -114,29 +123,32 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 						{108, 95, 100, 20}, {221, 67, 100, 20}, {340, 103, 100,20}, {393, 198, 24, 98}, // 64
 						{394, 300, 24, 98}, {324, 476, 90, 24}, {220, 504, 90, 24}, {118, 478, 90, 24}, // 68
 						{ 42, 404, 90, 24}, // 72
-						{585, 276, 72, 43}, {557, 300, 24, 20}, {557, 277, 24, 20}, {579, 239, 22, 20},
-						{590, 235, 22, 20}, {625, 224, 22, 20}, {660, 235, 22, 20}, {661, 277, 22, 20},
-						{661, 300, 22, 20}, {648, 336, 22, 20}, {626, 346, 22, 20}, {601, 341, 20, 22},
-						{583, 326, 20, 22}, {530, 300, 24, 35}, {530, 261, 24, 35}, {559, 233},
-						{601, 212}, {649, 211}, {684, 234}, {688, 261, 24, 35},
-						{688, 300, 24, 35}, {684, 353}, {645, 380}, {599, 386},
-						{560, 363}, {503, 300, 24, 52}, {503, 245, 24, 52}, {536, 210},
-						{591, 178}, {653, 178}, {707, 212}, {716, 245, 24, 52},
-						{716, 299, 24, 52}, {708, 384}, {653, 415}, {591, 415},
-						{539, 387}, {476, 300, 24, 66}, {476, 231, 24, 66}, {513, 188},
-						{585, 149}, {661, 149},	 {730, 187}, {743, 229, 24, 66},
-						{743, 299, 24, 66}, {731, 406}, {661, 446}, {584, 448},
-						{517, 412}, {449, 300, 24, 83}, {449, 214, 24, 83}, {443, 162},
-						{575, 117}, {669, 115}, {752, 166}, {771, 213, 24, 83},
-						{771, 299, 24, 83}, {754, 428}, {670, 479}, {575, 479},
-						{497, 436}, {422, 300, 24, 98}, {422, 199, 24, 98}, {469, 141},
-						{572,  89}, {677,  90}, {774, 142}, {798, 197, 24, 98},
-						{798, 299, 24, 98}, {775, 453}, {677, 507}, {567, 508},
-						{476, 463}};
+						{585, 276, 72, 43}, {557, 300, 24, 20}, {557, 277, 24, 20}, {561, 259, 22, 20},//73
+						{586, 234, 22, 20}, {625, 224, 22, 20}, {661, 238, 22, 20}, {661, 277, 22, 20},//77
+						{661, 300, 22, 20}, {648, 336, 22, 20}, {626, 346, 22, 20}, {601, 341, 20, 22},//81
+						{583, 326, 20, 22}, {530, 300, 24, 35}, {530, 261, 24, 35}, {533, 243,36,24},//85
+						{575, 209,36,24}, {624, 195,36,24}, {676, 210,36,24}, {688, 261, 24, 35},//89
+						{688, 300, 24, 35}, {664, 363,36,24}, {626, 376,36,24}, {585, 368,36,24},//93
+						{555, 341,36,24}, {503, 300, 24, 52}, {503, 245, 24, 52}, {506, 227,60,22},//97
+						{558, 181,60,22}, {627, 163,60,22}, {693, 183,60,22}, {716, 245, 24, 52},//101
+						{716, 299, 24, 52}, {680, 391,60,22}, {626, 407,60,22}, {571, 396,60,22},//105
+						{528, 358,60,22}, {476, 300, 24, 66}, {476, 231, 24, 66}, {481, 212,60,22},//109
+						{543, 154,60,22}, {627, 135,60,22},	 {710, 155,60,22}, {743, 229, 24, 66},//113
+						{743, 299, 24, 66}, {696, 419,60,22}, {626, 440,60,22}, {554, 424,60,22},//117
+						{501, 374,60,22}, {449, 300, 24, 83}, {449, 214, 24, 83}, {450, 196,80,22},//121
+						{525, 124,80,22}, {626, 100,80,22}, {725, 126,80,22}, {771, 213, 24, 83},//125
+						{771, 299, 24, 83}, {713, 444,80,22}, {626, 471,80,22}, {540, 452,80,22},//129
+						{474, 390,80,22}, {422, 300, 24, 98}, {422, 199, 24, 98}, {425, 181,90,24},//133
+						{513,  103,90,24}, {627,  76,90,24}, {741, 103,90,24}, {798, 197, 24, 98},//137
+						{798, 299, 24, 98}, {729, 473,90,24}, {627, 504,90,24}, {524, 479,90,24},//141
+						{445, 406,90,24}}; //145
 		return lista;
 	}
+	
 		
-	private void CarregarCasas() {
+	
+	
+ 	private void CarregarCasas() {
         ret[0] = plotaRet(coordCasa[0][0], coordCasa[0][1], coordCasa[0][2], coordCasa[0][3], 0);
         
         for (int i=1; i<73; i+=6) {
@@ -162,6 +174,20 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
         	ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 0);
             ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 0);
         }
+        for (int i=76; i<137; i+=12) {
+			ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], -45);
+			ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], -15);
+			ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], -45);
+			ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], -15);
+			
+		}
+		for(int i=78; i<139; i+=12) {
+			ret[i] = plotaRet(coordCasa[i][0], coordCasa[i][1], coordCasa[i][2], coordCasa[i][3], 15);
+			ret[i+1] = plotaRet(coordCasa[i+1][0], coordCasa[i+1][1], coordCasa[i+1][2], coordCasa[i+1][3], 45);
+			ret[i+6] = plotaRet(coordCasa[i+6][0], coordCasa[i+6][1], coordCasa[i+6][2], coordCasa[i+6][3], 15);
+			ret[i+1+6] = plotaRet(coordCasa[i+1+6][0], coordCasa[i+1+6][1], coordCasa[i+1+6][2], coordCasa[i+1+6][3], 50);
+		}
+        
 		
 	}
 	
@@ -294,7 +320,8 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
 	public void paintComponent(Graphics g) {
         super.paintComponent(g); 
         
-        g.drawImage(tabuleiro, 0, 0, null);
+        
+       // g.drawImage(tabuleiro, 0, 0, null);
         // g.drawImage(dado1[0],100,100,null);
         // g.drawImage(dado2[0],150,150,null);
         // g.drawImage(cartas[11],200,200,null);
@@ -305,32 +332,50 @@ public class DesenhaTabuleiro extends JPanel implements MouseListener{
      // Retangulo das cartas
         ret[146] = new Rectangle2D.Double(360, 581, 123, 108);
      // Mudar para ret.length
-        for (int i=0; i<73; i++) {
+        for (int i=0; i<ret.length; i++) {
         	g2d.draw(ret[i]);
         	g2d.fill(ret[i]);
         }
+        g.drawImage(tabuleiro, 0, 0, null);
         CarregaPeao(modoJogo, g2d);
-        
-        
 
     }
 	
-	/*APAGAR A MAIN SO PARA TESTE*/
-	public static void main(String[] args) {
-		DesenhaTabuleiro tab = new DesenhaTabuleiro(3);
-		
+	
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==jogar) {
+			int valor1,valor2;
+			
+			//g.drawImage(dado1[valor1 -1],100,100,null);
+			//g.drawImage(dado2[valor2 -1],100,100,null);
+			
+			
+		}
 	}
+		
+		
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int x = e.getX();
 		int y = e.getY();
-		for (int i=1; i<73; i+=6) {
-			if (ret[i].contains(x, y))
-				System.out.println("Voce clicou na casa " + i + ".\n\n");
-			if (ret[i+1].contains(x, y))
-				System.out.println("Voce clicou na casa " + (i+1) + ".\n\n");
+		//carta,casa,peao
+		for(int i=0;i<12;i++) {
+			
+			if(peao[i].contains(x,y)) {
+				
+				System.out.print("Peao selecionado");
+				
+			}
 		}
+		for (int j=1; j<ret.length; j+=6) {
+			
+			if (ret[j].contains(x, y))
+				System.out.println("Voce clicou na casa " + j + ".\n\n");
+			if (ret[j+1].contains(x, y))
+				System.out.println("Voce clicou na casa " + (j+1) + ".\n\n");
+		}	
 		
 	}
 	@Override

@@ -16,8 +16,9 @@ import javax.swing.JLabel;
 	Dimension screenSize=tk.getScreenSize();
 	
 	JFrame frame = new JFrame();
-	JButton dois =new JButton("2");
-	JButton quatro =new JButton(" 4");
+	JButton dois =new JButton("2-Padrão");
+	JButton quatro =new JButton("4-Comp");
+	JButton quatroDupla = new JButton ("4-Duplas");
 	JLabel NomeGame = new JLabel ("LATITUDE 90");
 	JLabel selecao = new JLabel("Selecione a Quantidade de jogadores");
 	
@@ -34,9 +35,12 @@ import javax.swing.JLabel;
 		dois.setBounds(x+180, y+70,100, 35);
 		dois.setFocusable(false);//desnecessario
 		
-		//Butao Carregar
+		//Quatro jogadores
 		
-		quatro.setBounds(x+180, y+120,100, 35);
+		quatroDupla.setBounds(x+180, y+120,100, 35);
+		quatroDupla.setFocusable(false);//desnecessario
+	
+		quatro.setBounds(x+180, y+170,100, 35);
 		quatro.setFocusable(false);//desnecessario
 		
 		
@@ -54,18 +58,21 @@ import javax.swing.JLabel;
 		frame.add(selecao);
 		frame.add(dois);
 		frame.add(quatro);
+		frame.add(quatroDupla);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1200,700);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		
-		
-		
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==dois){
+			frame.dispose();
+			DesenhaTabuleiro desenha = new DesenhaTabuleiro(1);
+		}
 		
 	}
 	

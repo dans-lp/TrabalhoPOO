@@ -3,8 +3,10 @@ package view;
  class Main {
 
 	public static void main(String[] args) {
-		TelaInicial telaInicial = new TelaInicial();
-
+		ViewFacade telaInicial = ViewFacade.getViewFacade();
+		
+		telaInicial.iniciaView();
 	}
 
 }
+/*Fazer o dado e as cartas*/
